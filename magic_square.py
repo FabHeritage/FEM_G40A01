@@ -1,46 +1,42 @@
 # def check_magic_square():
 def estimate_square_size(first_row):
-    grid = []
+    grid = [first_row]
+    size = len(first_row)
 
-    for index, _ in enumerate(first_row):
-        pass
-    if index < 2:
-        print (f"{index} Unit entered, need more to create a magic square.")
+    if size < 3:
+        print(f"{size} Unit entered, need more to create a magic square.")
         return
-    grid.append(first_row)
-    
-    for _ in range(index):
+
+    for _ in range(size - 1):
         next_row = input().split()
-        row_size = len(next_row)-1 
-        if not row_size == index:
-            if row_size > index:
-                print(f"{row_size-index} unit too many")
+
+        if len(next_row) != size:
+            if len(next_row) > size:
+                print(f"{len(next_row) - size} unit too many")
                 return
             else:
-                print(f"{index-row_size} unit too little")
+                print(f"{size - len(next_row)} unit too little")
                 return
-            
-        else:
-            grid.append(input().split())
-            print("row added")
-            
-            
-    for row in grid: print(row)
+
+        grid.append(next_row)
+
+    for row in grid:
+        print(row)
+
+    return grid
+
 
 def prompt_user():
     print("Please enter the square, separated by spaces")
-    
-    first_row = input().split(" ")
-    
+
+    first_row = input().split()
+
     return estimate_square_size(first_row)
-    
-
-
-
 
 
 def main():
     prompt_user()
+
 
 if __name__ == "__main__":
     main()
