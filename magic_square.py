@@ -1,3 +1,5 @@
+import math
+
 def estimate_square_size(first_row):
     size = len(first_row)
 
@@ -26,7 +28,10 @@ def estimate_square_size(first_row):
         return
     
     sum_of_each_row = sum_row(grid)
-
+    sum_of_each_col = sum_column(grid)
+    print(sum_of_each_row)
+    print(sum_of_each_col)
+    print(sum_of_each_col == sum_of_each_row)
     return grid
 
 
@@ -50,11 +55,27 @@ def sum_row(grid):
     rows = []
     for row in grid:
         rows.append(sum(row))
-    
-    
     return rows 
+
 def sum_column(grid):
-    values = [value for row in grid for value in row]
+    # values = [value for row in grid for value in row]
+
+    cols = []
+    # num_of_col = math.sqrt(len(values))
+    while len(grid) != 0:
+        if len(grid[0]) != 0:
+            for index,unit in  enumerate(grid):
+                # print(index, unit[0])
+                cols.append(unit[0])
+                del unit[0]
+        else:
+            grid.clear()
+    size = int(math.sqrt(len(cols)))
+    print(size)         
+    org_cols = [sum(cols[i:i + size]) for i in range(0, len(cols), size)]
+    return org_cols
+
+    # return
     
 
 # def sum_diagonal():
