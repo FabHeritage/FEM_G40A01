@@ -75,10 +75,36 @@ def sum_column(grid):
     org_cols = [sum(cols[i:i + size]) for i in range(0, len(cols), size)]
     return org_cols
 
-    # return
     
 
-# def sum_diagonal():
+def sum_diagonal(grid):
+    values = [(row_index, value_index, value) for row_index, row in enumerate(grid) for value_index, value in enumerate(row)]
+    values2 = [(row_index, value_index, value) for row_index, row in enumerate(grid) for value_index, value in enumerate(reversed(row))]
+    diags = []
+    for unit in values:
+        if unit[0] == unit[1]:
+            diags.append(unit[2])
+    for unit in values2:
+        if unit[0] == unit[1]:
+            diags.append(unit[2])
+
+    size = int(len(diags)/2)
+    org_diags = [sum(diags[i:i + size]) for i in range(0, len(diags), size)]
+    return org_diags
+
+def determine_magic_square(grid):
+    diag_sqr = [row.copy() for row in grid]
+    row_sqr = [row.copy() for row in grid]
+    col_sqr = [row.copy() for row in grid]
+
+    sum_of_each_row = sum_row(row_sqr)
+    sum_of_each_col = sum_column(col_sqr)
+    sum_of_each_diag = sum_diagonal(diag_sqr)
+
+    if set(sum_of_each_row) == set(sum_of_each_col) == set(sum_of_each_diag):
+        return f"Is a magic square (sum is {set(sum_of_each_row)})"
+    else:
+        return "Is not a magic square (not all the same sum)"
 
 def prompt_user():
     print("Please enter the square, separated by spaces")
